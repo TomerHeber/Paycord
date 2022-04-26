@@ -15,6 +15,7 @@ from currency_symbols import CurrencySymbols
 from datetime import datetime
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from bson.json_util import dumps
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 DISCORD_API_URL = os.getenv("DISCORD_API_URL", "https://discord.com/api")
@@ -42,6 +43,7 @@ DISCORD_WEBHOOK = os.getenv("DISCORD_WEBHOOK", None)
 
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 oauth = OAuth(app)
 mongo = MongoClient(
     os.getenv("MONGO_IP", "localhost"),

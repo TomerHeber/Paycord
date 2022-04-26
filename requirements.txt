@@ -3,5 +3,5 @@ stripe
 authlib
 requests
 currency-symbols
-pymongo
+pymongo[srv]
 discord-webhook
